@@ -9,7 +9,7 @@
 
 import java.util.Scanner;
 import java.util.function.Predicate;
-public class Billboard{
+public class D581 {
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args){
         long start = System.nanoTime();
