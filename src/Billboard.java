@@ -60,16 +60,14 @@ public class Billboard{
 
             int startIndex = (ads[0] != singleDimensionLargestAd) ? 0 : 1;
             int[] remLargestAreaAd = ads[startIndex];
-            for(int[] ad : ads){
-                if(
+            for(int[] ad : ads) {
+                if (
                         ad[2] != singleDimensionLargestAd[2] &&
-                        (remLargestAreaAd[0] * remLargestAreaAd[1]) < (ad[0] * ad[1]) //this is disgusting
-                ){
+                                (remLargestAreaAd[0] * remLargestAreaAd[1]) < (ad[0] * ad[1]) //this is disgusting
+                ) {
                     remLargestAreaAd = ad;
                 }
             }
-
-            System.out.println(YPointer);
 
             for(int i = 0; i < remLargestAreaAd[0]; i++){
                 for(int j = 0; j< remLargestAreaAd[1]; j++){
@@ -77,7 +75,18 @@ public class Billboard{
                 }
             }
 
+            char unusedChar = (char) (ads[0][2] + ads[1][2] + ads[2][2]
+                                    - singleDimensionLargestAd[2]
+                                    - remLargestAreaAd[2]);
 
+            // fill remaining array with unusedChar its confirmed that its meant to be fully filled
+            for(int i = 0; i < billBoardSide; i++){
+                for(int j = 0; j < billBoardSide; j++){
+                    if(billboard[i][j] == '\0'){
+                        billboard[i][j] = unusedChar;
+                    }
+                }
+            }
 
             for(char[] chRow : billboard){
                 for(char ch : chRow){
