@@ -41,6 +41,12 @@ public class Billboard{
                     }
                 }
             }
+
+            if (singleDimensionLargestAd[1] != billBoardSide) {
+                System.out.println(-1);
+                return;
+            }
+
             boolean rotateFlag = false;
             if(singleDimensionLargestAd[1] < singleDimensionLargestAd[0]){
                 rotateFlag = true;
