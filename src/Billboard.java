@@ -12,6 +12,8 @@ import java.util.function.Predicate;
 public class Billboard{
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args){
+        long start = System.nanoTime();
+
         Predicate<Double> isWholeNumber = (x) -> x == Math.floor(x);
         int[][] ads = {{0,0,65},{0,0,66},{0,0,67}}; // X Y CHARACTER
         int areaSum = 0;
@@ -98,5 +100,9 @@ public class Billboard{
         }else{
             System.out.println(-1);
         }
+
+        Runtime rt = Runtime.getRuntime();
+        System.err.println("Memory: " + (rt.totalMemory() - rt.freeMemory()) / 1024 + " KB");
+        System.err.println("Time: " + (System.nanoTime() - start) / 1_000_000 + " ms");
     }
 }
