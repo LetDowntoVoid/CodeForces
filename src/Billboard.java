@@ -41,8 +41,9 @@ public class Billboard{
                     }
                 }
             }
-
+            boolean rotateFlag = false;
             if(singleDimensionLargestAd[1] < singleDimensionLargestAd[0]){
+                rotateFlag = true;
                 singleDimensionLargestAd[0] += singleDimensionLargestAd[1];
                 singleDimensionLargestAd[1] = singleDimensionLargestAd[0] - singleDimensionLargestAd[1];
                 singleDimensionLargestAd[0] -= singleDimensionLargestAd[1];
@@ -71,8 +72,16 @@ public class Billboard{
                 }
             }
 
+            if(rotateFlag){
+                remLargestAreaAd[0] += remLargestAreaAd[1];
+                remLargestAreaAd[1] = remLargestAreaAd[0] - remLargestAreaAd[1];
+                remLargestAreaAd[0] -= remLargestAreaAd[1];
+            }
+
             for(int i = 0; i < remLargestAreaAd[0]; i++){
                 for(int j = 0; j< remLargestAreaAd[1]; j++){
+                    //System.out.print(i + XPointer + " ");
+                    //System.out.println(j + YPointer);
                     billboard[i + XPointer][j + YPointer] = (char) remLargestAreaAd[2];
                 }
             }
