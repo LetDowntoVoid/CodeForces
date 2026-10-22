@@ -40,11 +40,23 @@ public class Billboard{
                 }
             }
 
+            if(singleDimensionLargestAd[1] < singleDimensionLargestAd[0]){
+                singleDimensionLargestAd[0] += singleDimensionLargestAd[1];
+                singleDimensionLargestAd[1] = singleDimensionLargestAd[0] - singleDimensionLargestAd[1];
+                singleDimensionLargestAd[0] -= singleDimensionLargestAd[1];
+            }
+
+            int[] pointer = {0,0};
             for(int i = 0; i < singleDimensionLargestAd[0]; i++){
                 for(int j = 0; j< singleDimensionLargestAd[1]; j++){
                     billboard[i][j] = (char) singleDimensionLargestAd[2];
+                    pointer[0] = i;
+                    pointer[1] = j;
                 }
             }
+
+            pointer[0] = (pointer[0] % billBoardSide);
+            pointer[1] = pointer[1] % billBoardSide;
 
             for(char[] chRow : billboard){
                 for(char ch : chRow){
