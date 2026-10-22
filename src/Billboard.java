@@ -46,17 +46,39 @@ public class Billboard{
                 singleDimensionLargestAd[0] -= singleDimensionLargestAd[1];
             }
 
-            int[] pointer = {0,0};
+            int XPointer = 0;
+            int YPointer = 0;
             for(int i = 0; i < singleDimensionLargestAd[0]; i++){
-                for(int j = 0; j< singleDimensionLargestAd[1]; j++){
+                for(int j = 0; j < singleDimensionLargestAd[1]; j++){
                     billboard[i][j] = (char) singleDimensionLargestAd[2];
-                    pointer[0] = i;
-                    pointer[1] = j;
+                    XPointer = i;
+                    YPointer = j;
+                }
+            }
+            XPointer = (XPointer + 1) % billBoardSide;
+            YPointer = (YPointer + 1) % billBoardSide;
+
+            int startIndex = (ads[0] != singleDimensionLargestAd) ? 0 : 1;
+            int[] remLargestAreaAd = ads[startIndex];
+            for(int[] ad : ads){
+                if(
+                        ad[2] != singleDimensionLargestAd[2] &&
+                        (remLargestAreaAd[0] * remLargestAreaAd[1]) < (ad[0] * ad[1]) //this is disgusting
+                ){
+                    remLargestAreaAd = ad;
                 }
             }
 
-            pointer[0] = (pointer[0] % billBoardSide);
-            pointer[1] = pointer[1] % billBoardSide;
+            System.out.println(YPointer);
+
+            for(int i = 0; i < remLargestAreaAd[0]; i++){
+                for(int j = 0; j< remLargestAreaAd[1]; j++){
+                    System.out.println((i) + " " + (j + YPointer));
+                    billboard[i + XPointer][j + YPointer] = (char) remLargestAreaAd[2];
+                }
+            }
+
+            
 
             for(char[] chRow : billboard){
                 for(char ch : chRow){
