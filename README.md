@@ -8,5 +8,5 @@ https://codeforces.com/problemset/problem/581/D
 `src/Billboard.java`  
 Started: 23 / 10 / 2026 01:10  
 Tentative Working Solution: 23 / 10 / 26 03:02 
-Fixed Solution: 23 / 10 / 26 03:51  
-Ended: Started
+Fixed Solution: 23 / 10 / 26 04:32  
+Ended: Completed, 3 hours 22 minutes
