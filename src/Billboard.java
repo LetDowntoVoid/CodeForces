@@ -25,7 +25,6 @@ public class Billboard{
         }
         if(isWholeNumber.test(Math.sqrt(areaSum))){
             int billBoardSide = (int) Math.sqrt(areaSum);
-            System.out.println(billBoardSide);
 
             char[][] billboard = new char[billBoardSide][billBoardSide];
 
@@ -86,8 +85,6 @@ public class Billboard{
 
             for(int i = 0; i < remLargestAreaAd[0]; i++){
                 for(int j = 0; j< remLargestAreaAd[1]; j++){
-                    //System.out.print(i + XPointer + " ");
-                    //System.out.println(j + YPointer);
                     billboard[i + XPointer][j + YPointer] = (char) remLargestAreaAd[2];
                 }
             }
@@ -105,11 +102,18 @@ public class Billboard{
                 }
             }
 
-            for(char[] chRow : billboard){
-                for(char ch : chRow){
-                    System.out.print(ch);
+
+
+            if(validate(billboard)){
+                System.out.println(billBoardSide);
+                for(char[] chRow : billboard){
+                    for(char ch : chRow){
+                        System.out.print(ch);
+                    }
+                    System.out.println();
                 }
-                System.out.println();
+            }else{
+                System.out.println(-1);
             }
 
         }else{
@@ -119,5 +123,44 @@ public class Billboard{
         Runtime rt = Runtime.getRuntime();
         System.err.println("Memory: " + (rt.totalMemory() - rt.freeMemory()) / 1024 + " KB");
         System.err.println("Time: " + (System.nanoTime() - start) / 1_000_000 + " ms");
+    }
+
+    public static boolean validate(char[][] billboard) {
+        int n = billboard.length;
+        int[] minR = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
+        int[] maxR = {-1, -1, -1};
+        int[] minC = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
+        int[] maxC = {-1, -1, -1};
+
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < billboard[i].length; j++) {
+                int k = billboard[i][j] - 'A';
+
+                if (k < 0 || k > 2) {
+                    return false; // unfilled or unexpected char
+                }
+
+                minR[k] = Math.min(minR[k], i);
+                maxR[k] = Math.max(maxR[k], i);
+                minC[k] = Math.min(minC[k], j);
+                maxC[k] = Math.max(maxC[k], j);
+            }
+        }
+
+        for (int k = 0; k < 3; k++) {
+            if (maxR[k] == -1) {
+                return false;// letter never appears
+            }
+            char expected = (char) ('A' + k);
+            for (int i = minR[k]; i <= maxR[k]; i++) {
+                for (int j = minC[k]; j <= maxC[k]; j++) {
+                    if (billboard[i][j] != expected) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
