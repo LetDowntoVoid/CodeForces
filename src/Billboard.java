@@ -41,18 +41,17 @@ public class Billboard{
                 }
             }
 
-            if (singleDimensionLargestAd[1] != billBoardSide) {
+            if(largestDimensionItem != billBoardSide){
                 System.out.println(-1);
                 return;
             }
 
-            boolean rotateFlag = false;
             if(singleDimensionLargestAd[1] < singleDimensionLargestAd[0]){
-                rotateFlag = true;
                 singleDimensionLargestAd[0] += singleDimensionLargestAd[1];
                 singleDimensionLargestAd[1] = singleDimensionLargestAd[0] - singleDimensionLargestAd[1];
                 singleDimensionLargestAd[0] -= singleDimensionLargestAd[1];
             }
+
 
             int XPointer = 0;
             int YPointer = 0;
@@ -77,10 +76,20 @@ public class Billboard{
                 }
             }
 
-            if(rotateFlag){
-                remLargestAreaAd[0] += remLargestAreaAd[1];
-                remLargestAreaAd[1] = remLargestAreaAd[0] - remLargestAreaAd[1];
-                remLargestAreaAd[0] -= remLargestAreaAd[1];
+            int remH = billBoardSide - XPointer;
+            int a = remLargestAreaAd[0];
+            int b = remLargestAreaAd[1];
+
+            // flush -> fits in the leftover strip AND touches an edge of it
+            boolean asIsFlush = a <= remH && b <= billBoardSide && (a == remH || b == billBoardSide);
+            boolean rotFlush  = b <= remH && a <= billBoardSide && (b == remH || a == billBoardSide);
+
+            if(!asIsFlush && rotFlush){
+                remLargestAreaAd[0] = b;
+                remLargestAreaAd[1] = a;
+            } else if(!asIsFlush){
+                System.out.println(-1);
+                return;
             }
 
             for(int i = 0; i < remLargestAreaAd[0]; i++){
@@ -104,7 +113,7 @@ public class Billboard{
 
 
 
-            if(validate(billboard)){
+            if(validate(billboard, ads)){
                 System.out.println(billBoardSide);
                 for(char[] chRow : billboard){
                     for(char ch : chRow){
@@ -125,7 +134,7 @@ public class Billboard{
         System.err.println("Time: " + (System.nanoTime() - start) / 1_000_000 + " ms");
     }
 
-    public static boolean validate(char[][] billboard) {
+    public static boolean validate(char[][] billboard, int[][] ads) {
         int n = billboard.length;
         int[] minR = {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE};
         int[] maxR = {-1, -1, -1};
@@ -159,6 +168,14 @@ public class Billboard{
                         return false;
                     }
                 }
+            }
+
+            int h = maxR[k] - minR[k] + 1;
+            int w = maxC[k] - minC[k] + 1;
+            boolean dimsMatch = (h == ads[k][0] && w == ads[k][1])
+                                    || (h == ads[k][1] && w == ads[k][0]);
+            if (!dimsMatch) {
+                return false;
             }
         }
         return true;
