@@ -36,7 +36,6 @@ public class Billboard{
                     if(ads[i][j] > largestDimensionItem){
                         largestDimensionItem = ads[i][j];
                         singleDimensionLargestAd = ads[i];
-                        break;
                     }
                 }
             }
