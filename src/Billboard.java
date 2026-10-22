@@ -73,12 +73,11 @@ public class Billboard{
 
             for(int i = 0; i < remLargestAreaAd[0]; i++){
                 for(int j = 0; j< remLargestAreaAd[1]; j++){
-                    System.out.println((i) + " " + (j + YPointer));
                     billboard[i + XPointer][j + YPointer] = (char) remLargestAreaAd[2];
                 }
             }
 
-            
+
 
             for(char[] chRow : billboard){
                 for(char ch : chRow){
