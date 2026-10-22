@@ -13,7 +13,7 @@ public class Billboard{
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args){
         Predicate<Double> isWholeNumber = (x) -> x == Math.floor(x);
-        int[][] ads = {{0,0},{0,0},{0,0}};
+        int[][] ads = {{0,0,65},{0,0,66},{0,0,67}}; // X Y CHARACTER
         int areaSum = 0;
         for(int[] ad: ads){
             for(int i = 0; i < 2; i++){
@@ -25,7 +25,33 @@ public class Billboard{
             int billBoardSide = (int) Math.sqrt(areaSum);
             System.out.println(billBoardSide);
 
-            int[][] billboard = new int[billBoardSide][billBoardSide];
+            char[][] billboard = new char[billBoardSide][billBoardSide];
+
+            int[] singleDimensionLargestAd = ads[0];
+            int largestDimensionItem = ads[0][0];
+
+            for(int i = 0; i < 3; i++){
+                for(int j = 0; j < 2; j++){
+                    if(ads[i][j] > largestDimensionItem){
+                        largestDimensionItem = ads[i][j];
+                        singleDimensionLargestAd = ads[i];
+                        break;
+                    }
+                }
+            }
+
+            for(int i = 0; i < singleDimensionLargestAd[0]; i++){
+                for(int j = 0; j< singleDimensionLargestAd[1]; j++){
+                    billboard[i][j] = (char) singleDimensionLargestAd[2];
+                }
+            }
+
+            for(char[] chRow : billboard){
+                for(char ch : chRow){
+                    System.out.print(ch);
+                }
+                System.out.println();
+            }
 
         }else{
             System.out.println(-1);
